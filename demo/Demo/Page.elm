@@ -15,6 +15,7 @@ import Material.Options as Options exposing (Property, cs, css, styled, when)
 import Material.Toolbar as Toolbar
 import Material.TopAppBar as TopAppBar
 
+
 type alias Page m =
     { toolbar : String -> Html m
     , fixedAdjust : Options.Property () m
@@ -38,39 +39,38 @@ toolbar lift idx mdc navigate url title =
         [ cs "catalog-top-app-bar"
         ]
         [ TopAppBar.section
-                [ TopAppBar.alignStart
+            [ TopAppBar.alignStart
+            ]
+            [ styled Html.div
+                [ cs "catalog-back"
+                , css "padding-right" "24px"
                 ]
-                [ styled Html.div
-                    [ cs "catalog-back"
-                    , css "padding-right" "24px"
-                    ]
-                    [ case url of
-                        Url.StartPage ->
-                            styled Html.img
-                                [ cs "mdc-toolbar__menu-icon"
-                                , Options.attribute (Html.src "images/ic_component_24px_white.svg")
-                                ]
-                                []
+                [ case url of
+                    Url.StartPage ->
+                        styled Html.img
+                            [ cs "mdc-toolbar__menu-icon"
+                            , Options.attribute (Html.src "images/ic_component_24px_white.svg")
+                            ]
+                            []
 
-                        _ ->
-                            Icon.view
-                                [ Options.onClick (navigate Url.StartPage)
-                                , Toolbar.menuIcon
-                                ]
-                                "arrow_back"
-                    ]
-                , TopAppBar.title
-                    [ cs "catalog-top-app-bar__title"
-                    , css "margin-left"
-                        (if url == Url.StartPage then
-                            "8px"
-                         else
-                            "24"
-                        )
-                    ]
-                    [ text title ]
+                    _ ->
+                        Icon.view
+                            [ Options.onClick (navigate Url.StartPage)
+                            , Toolbar.menuIcon
+                            ]
+                            "arrow_back"
                 ]
-
+            , TopAppBar.title
+                [ cs "catalog-top-app-bar__title"
+                , css "margin-left"
+                    (if url == Url.StartPage then
+                        "8px"
+                     else
+                        "24"
+                    )
+                ]
+                [ text title ]
+            ]
         ]
 
 
