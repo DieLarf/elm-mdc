@@ -1,12 +1,13 @@
 module Demo.Buttons exposing (Model,defaultModel,Msg(Mdc),update,view)
 
 import Demo.Page as Page exposing (Page)
-import Html exposing (Html, text)
+import Html exposing (Html, text, Attribute)
 import Material
 import Material.Button as Button
-import Material.Options as Options exposing (styled, cs, css, when)
+import Material.Options as Options exposing (styled, cs, css, when, attribute)
 import Material.Typography as Typography
-
+import Material.List as Lists
+import Html.Attributes
 
 type alias Model m =
     { mdc : Material.Model m
@@ -36,37 +37,35 @@ view lift page model =
         textButtons idx =
             example idx "Text Button"
             [ Button.ripple
-            , css "margin" "16px"
+            , css "margin" "8px 16px"
             ]
 
         raisedButtons idx =
             example idx "Raised Button"
             [ Button.raised
             , Button.ripple
-            , css "margin" "16px"
+            , css "margin" "8px 16px"
             ]
 
         unelevatedButtons idx =
             example idx "Unelevated Button"
             [ Button.unelevated
             , Button.ripple
-            , css "margin" "16px"
+            , css "margin" "8px 16px"
             ]
 
         outlinedButtons idx =
             example idx "Outlined Button"
             [ Button.outlined
             , Button.ripple
-            , css "margin" "16px"
+            , css "margin" "8px 16px"
             ]
 
         example idx title options =
             styled Html.div
-            [ css "padding" "0 24px 16px"
-            ]
-            [ styled Html.div
-              [ Typography.title
-              , css "padding" "48px 16px 24px"
+            [ ]
+            [ styled Html.h3
+              [ cs "mdc-typography--subtitle1"
               ]
               [ text title
               ]
@@ -105,7 +104,13 @@ view lift page model =
     in
     page.body "Buttons"
     [
-      Page.hero []
+      styled Html.div
+      [ cs "demo-wrapper"
+      ]
+      [
+      styled Html.h1 [cs "mdc-typography--headline5"] [text "Button"],
+      styled Html.p [Typography.body1] [text "Buttons communicate an action a user can take. They are typically placed throughout your UI, in places like dialogs, forms, cards, and toolbars."],
+      Page.hero2 []
       [ Button.view (lift << Mdc) "buttons-hero-button-flat" model.mdc
         [ Button.ripple
         , css "margin-right" "32px"
@@ -116,22 +121,62 @@ view lift page model =
         [ Button.ripple
         , Button.raised
         , css "margin-left" "32px"
+        , css "margin-right" "32px"
         ]
         [ text "Raised"
         ]
-      ]
-    ,
-      styled Html.div
-      [ cs "demo-wrapper"
-      ]
-      [ styled Html.h1
-        [ Typography.display2
-        , css "padding-left" "36px"
-        , css "padding-top" "64px"
-        , css "padding-bottom" "8px"
+      , Button.view (lift << Mdc) "buttons-hero-button-unelevated" model.mdc
+        [ Button.ripple
+        , Button.unelevated
+        , css "margin-left" "32px"
+        , css "margin-right" "32px"
         ]
-        [ text "Ripple Enabled"
+        [ text "Unelevated"
         ]
+        , Button.view (lift << Mdc) "buttons-hero-button-outlined" model.mdc
+          [ Button.ripple
+          , Button.outlined
+          , css "margin-left" "32px"
+          ]
+          [ text "Outlined"
+          ]
+      ]
+      , styled Html.h2 [cs "mdc-typography--headline6", css "border-bottom" "1px solid rgba(0,0,0,.87)"] [text "Resources"]
+      , Lists.a [
+          attribute <| Html.Attributes.href "https://material.io/go/design-buttons"
+        , attribute <| Html.Attributes.target "_blank"
+      ] [Lists.graphic [] [
+          styled Html.img [
+          attribute <| Html.Attributes.src "https://material-components.github.io/material-components-web-catalog/static/media/ic_material_design_24px.svg"
+          , cs "resources-icon"
+          , attribute <| Html.Attributes.alt "Material Design Guidelines icon"]
+          [] --Extract into method?
+        ]
+        , text "Material Design Guidelines"]
+      , Lists.a [
+          attribute <| Html.Attributes.href "https://material.io/components/web/catalog/buttons/"
+        , attribute <| Html.Attributes.target "_blank"
+          ] [Lists.graphic [] [
+          styled Html.img [
+          attribute <| Html.Attributes.src "https://material-components.github.io/material-components-web-catalog/static/media/ic_drive_document_24px.svg"
+          , cs "resources-icon"
+          , attribute <| Html.Attributes.alt "Documentation icon"]
+          [] --Extract into method?
+        ]
+        , text "Documentation"]
+      , Lists.a [
+        attribute <| Html.Attributes.href "https://github.com/material-components/material-components-web/tree/master/packages/mdc-button"
+      , attribute <| Html.Attributes.target "_blank"
+      ] [Lists.graphic [] [
+          styled Html.img [
+          attribute <| Html.Attributes.src "https://material-components.github.io/material-components-web-catalog/static/media/ic_code_24px.svg"
+          , cs "resources-icon"
+          , attribute <| Html.Attributes.alt "Source Code"]
+          [] --Extract into method?
+        ]
+        , text "Source Code (Material Components Web)"]
+      , styled Html.h2 [cs "mdc-typography--headline6", css "border-bottom" "1px solid rgba(0,0,0,.87)"] [text "Demos"]
+
 
       , textButtons "buttons-text-buttons"
       , raisedButtons "buttons-raised-buttons"
