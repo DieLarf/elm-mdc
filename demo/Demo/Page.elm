@@ -3,7 +3,6 @@ module Demo.Page
         ( Page
         , fixedAdjust
         , hero
-        , hero2
         , toolbar
         )
 
@@ -14,7 +13,7 @@ import Material
 import Material.Icon as Icon
 import Material.Options as Options exposing (Property, cs, css, styled, when)
 import Material.Toolbar as Toolbar
-
+import Material.TopAppBar as TopAppBar
 
 type alias Page m =
     { toolbar : String -> Html m
@@ -33,15 +32,13 @@ toolbar :
     -> String
     -> Html m
 toolbar lift idx mdc navigate url title =
-    Toolbar.view lift
+    TopAppBar.view lift
         idx
         mdc
-        [ Toolbar.fixed
-        , cs "catalog-top-app-bar"
+        [ cs "catalog-top-app-bar"
         ]
-        [ Toolbar.row []
-            [ Toolbar.section
-                [ Toolbar.alignStart
+        [ TopAppBar.section
+                [ TopAppBar.alignStart
                 ]
                 [ styled Html.div
                     [ cs "catalog-back"
@@ -62,19 +59,18 @@ toolbar lift idx mdc navigate url title =
                                 ]
                                 "arrow_back"
                     ]
-                , Toolbar.title
-                    [ cs "cataloge-title"
+                , TopAppBar.title
+                    [ cs "catalog-top-app-bar__title"
                     , css "margin-left"
                         (if url == Url.StartPage then
                             "8px"
                          else
                             "24"
                         )
-                    , css "font-family" "'Roboto Mono', monospace"
                     ]
                     [ text title ]
                 ]
-            ]
+
         ]
 
 
@@ -104,32 +100,6 @@ hero options =
                 :: css "justify-content" "center"
                 :: css "height" "360px"
                 :: css "min-height" "360px"
-                :: css "background-color" "rgba(0, 0, 0, 0.05)"
-                :: options
-            )
-        )
-
-hero2 : List (Property c m) -> List (Html m) -> Html m
-hero2 options =
-    styled Html.section
-        (List.reverse
-            -- TODO: dang it
-            (cs "hero"
-                :: css "display" "-webkit-box"
-                :: css "display" "-ms-flexbox"
-                :: css "display" "flex"
-                :: css "-webkit-box-orient" "horizontal"
-                :: css "-webkit-box-direction" "normal"
-                :: css "-ms-flex-flow" "row nowrap"
-                :: css "flex-flow" "row nowrap"
-                :: css "-webkit-box-align" "center"
-                :: css "-ms-flex-align" "center"
-                :: css "align-items" "center"
-                :: css "-webkit-box-pack" "center"
-                :: css "-ms-flex-pack" "center"
-                :: css "justify-content" "center"
-                :: css "min-height" "360px"
-                :: css "padding" "24px"
                 :: css "background-color" "rgba(0, 0, 0, 0.05)"
                 :: options
             )

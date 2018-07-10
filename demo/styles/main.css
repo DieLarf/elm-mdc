@@ -25,3 +25,9 @@
   margin: 0 auto;
   padding: 40px 16px 100px;
 }
+
+.catalog-top-app-bar__title {
+  text-transform: uppercase;
+  font-family: Roboto Mono, serif;
+  font-weight: 400;
+}
